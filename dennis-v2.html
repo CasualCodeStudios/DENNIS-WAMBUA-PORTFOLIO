@@ -1,0 +1,2935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Dennis Wambua — Certified Heavy Equipment Operator & Port Logistics Specialist, Mombasa County, Kenya.">
+<title>Dennis Wambua — Heavy Equipment Operator | Mombasa Port Logistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ─── CSS VARIABLES — INDUSTRIAL PALETTE ─── */
+:root {
+  --iron: #1a1814;
+  --steel: #252219;
+  --plate: #2e2a23;
+  --rust: #c4501a;
+  --rust-bright: #e85d1f;
+  --amber: #d4821a;
+  --amber-bright: #f09a20;
+  --ore: #8b6914;
+  --chalk: #e8e0d0;
+  --fog: #b0a898;
+  --smoke: #6b6358;
+  --rivet: #3d3830;
+  --weld: #4a4238;
+  --cyan: #00b4d8;
+  --cyan-dim: rgba(0,180,216,0.18);
+  --danger: #e63946;
+  --safe: #2d9e52;
+  --safe-bright: #3ec98a;
+  --font-display: 'Oswald', sans-serif;
+  --font-body: 'Source Serif 4', serif;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-head: 'Rajdhani', sans-serif;
+  --radius: 2px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--iron);
+  color: var(--chalk);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CANVAS BG ─── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor-dot {
+  position: fixed;
+  width: 7px; height: 7px;
+  background: var(--rust-bright);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform .12s ease, background .2s;
+}
+#cursor-ring {
+  position: fixed;
+  width: 28px; height: 28px;
+  border: 1.5px solid rgba(196,80,26,0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  transition: width .2s, height .2s, border-color .2s;
+}
+
+/* ─── SCROLL TOP ─── */
+.scroll-top {
+  position: fixed;
+  bottom: 2rem; right: 1.5rem;
+  width: 42px; height: 42px;
+  background: var(--rust);
+  border: 1px solid var(--rust-bright);
+  color: white;
+  cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .3s, transform .3s, background .2s;
+}
+.scroll-top.visible { opacity: 1; transform: none; }
+.scroll-top:hover { background: var(--rust-bright); }
+
+/* ─── CCS POPUP ─── */
+.ccs-popup {
+  position: fixed;
+  bottom: -420px;
+  right: 1.5rem;
+  width: min(340px, calc(100vw - 2rem));
+  background: var(--steel);
+  border: 1px solid var(--rust);
+  border-top: 3px solid var(--rust-bright);
+  padding: 1.8rem;
+  z-index: 9000;
+  transition: bottom .5s cubic-bezier(.34,1.56,.64,1);
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.ccs-popup.show { bottom: 5rem; }
+.ccs-popup-close {
+  position: absolute; top: .75rem; right: .75rem;
+  background: none; border: none; color: var(--fog);
+  cursor: none; font-size: 1rem; line-height: 1;
+  transition: color .2s;
+}
+.ccs-popup-close:hover { color: var(--rust-bright); }
+.ccs-popup-tag {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--amber);
+  letter-spacing: .12em;
+  margin-bottom: .6rem;
+}
+.ccs-popup-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--chalk);
+  margin-bottom: .4rem;
+}
+.ccs-popup-logo span { color: var(--rust-bright); }
+.ccs-popup-text { font-size: .82rem; color: var(--fog); margin-bottom: .3rem; }
+.ccs-popup-headline { font-family: var(--font-display); font-size: 1.1rem; color: var(--chalk); margin-bottom: .3rem; }
+.ccs-popup-headline em { color: var(--amber-bright); font-style: normal; }
+.ccs-popup-sub { font-size: .72rem; color: var(--fog); margin-bottom: 1rem; font-family: var(--font-mono); }
+.ccs-popup-btn {
+  display: block;
+  background: var(--rust);
+  color: white;
+  text-decoration: none;
+  padding: .7rem 1.2rem;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-align: center;
+  transition: background .2s;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+.ccs-popup-btn:hover { background: var(--rust-bright); }
+.ccs-popup-fine { font-size: .65rem; color: var(--smoke); margin-top: .6rem; text-align: center; font-family: var(--font-mono); }
+
+/* ─── NAV ─── */
+#mainNav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  transition: background .3s, padding .3s, box-shadow .3s;
+  background: transparent;
+}
+#mainNav.scrolled {
+  background: rgba(26,24,20,0.97);
+  border-bottom: 1px solid var(--rivet);
+  padding: .7rem 2rem;
+  box-shadow: 0 4px 30px rgba(0,0,0,.6);
+}
+.nav-brand {
+  display: flex; align-items: center; gap: .75rem;
+  text-decoration: none;
+}
+.nav-monogram {
+  width: 38px; height: 38px;
+  background: var(--rust);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: .04em;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+  flex-shrink: 0;
+}
+.nav-name-block { display: flex; flex-direction: column; line-height: 1.2; }
+.nav-name { font-family: var(--font-display); font-size: .9rem; font-weight: 600; color: var(--chalk); letter-spacing: .06em; }
+.nav-title-small { font-family: var(--font-mono); font-size: .6rem; color: var(--fog); letter-spacing: .1em; }
+.nav-status {
+  display: flex; align-items: center; gap: .4rem;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--fog);
+  letter-spacing: .08em;
+}
+.status-dot {
+  width: 7px; height: 7px;
+  background: var(--safe-bright);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(62,201,138,.6); }
+  50% { box-shadow: 0 0 0 5px rgba(62,201,138,0); }
+}
+.nav-links {
+  list-style: none;
+  display: flex; gap: .3rem;
+}
+.nav-links a {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: var(--fog);
+  text-decoration: none;
+  padding: .4rem .7rem;
+  border: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.nav-links a:hover {
+  color: var(--chalk);
+  border-color: var(--rivet);
+}
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: none;
+  padding: .3rem;
+  margin-left: auto;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--chalk);
+  transition: transform .3s, opacity .3s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-drawer {
+  position: fixed;
+  top: 0; right: -100%;
+  width: 75%; max-width: 320px;
+  height: 100vh;
+  background: var(--steel);
+  border-left: 2px solid var(--rust);
+  z-index: 800;
+  display: flex; flex-direction: column;
+  gap: .3rem;
+  padding: 5rem 2rem 2rem;
+  transition: right .35s cubic-bezier(.77,0,.175,1);
+}
+.nav-drawer.open { right: 0; }
+.nav-drawer a {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--fog);
+  text-decoration: none;
+  padding: .7rem 0;
+  border-bottom: 1px solid var(--rivet);
+  transition: color .2s;
+}
+.nav-drawer a:hover { color: var(--rust-bright); }
+
+/* ─── TICKER ─── */
+.ticker-wrap {
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid var(--rivet);
+  border-bottom: 1px solid var(--rivet);
+}
+.ccs-ticker {
+  background: var(--rust);
+  border-color: var(--rust-bright);
+}
+.skills-ticker {
+  background: var(--plate);
+}
+.ticker-track {
+  display: flex;
+  animation: tickerLeft 40s linear infinite;
+  white-space: nowrap;
+}
+.ticker-rtl {
+  animation: tickerRight 35s linear infinite;
+}
+@keyframes tickerLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes tickerRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .6rem 2rem;
+  font-family: var(--font-display);
+  font-size: .75rem;
+  letter-spacing: .1em;
+  font-weight: 500;
+  white-space: nowrap;
+  color: rgba(255,255,255,.9);
+}
+.ccs-ticker .ticker-item { color: rgba(255,255,255,.95); }
+.ccs-tick { color: #fff; font-weight: 700; }
+.ticker-sep {
+  opacity: .4;
+  padding: 0 .5rem;
+}
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 7rem 2rem 4rem;
+  overflow: hidden;
+}
+
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.hgl {
+  position: absolute;
+  background: linear-gradient(to bottom, transparent, rgba(196,80,26,0.06), transparent);
+}
+.hgl-1 { left: 22%; width: 1px; height: 100%; }
+.hgl-2 { left: 55%; width: 1px; height: 100%; }
+.hgl-3 { left: 78%; width: 1px; height: 100%; }
+.hgl-4 { top: 55%; width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(196,80,26,0.06), transparent); }
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.hero-tag {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  letter-spacing: .2em;
+  color: var(--rust);
+  border: 1px solid var(--rust);
+  padding: .25rem .6rem;
+}
+.hero-tag-year {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  letter-spacing: .15em;
+  color: var(--smoke);
+}
+
+.hero-headline { margin-bottom: 1rem; }
+.hero-pre {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .25em;
+  color: var(--amber);
+  display: block;
+  margin-bottom: .3rem;
+}
+
+h1.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-weight: 700;
+  line-height: .92;
+  letter-spacing: .04em;
+  color: var(--chalk);
+}
+.hero-name-accent {
+  -webkit-text-stroke: 2px var(--rust);
+  color: transparent;
+  display: block;
+}
+
+.hero-role-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-bottom: 1.2rem;
+}
+.role-pill {
+  font-family: var(--font-head);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--fog);
+  background: var(--plate);
+  border: 1px solid var(--weld);
+  padding: .3rem .75rem;
+}
+.role-divider { color: var(--smoke); align-self: center; }
+
+.hero-subtitle {
+  font-size: .9rem;
+  color: var(--fog);
+  max-width: 580px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+.hero-subtitle strong { color: var(--chalk); }
+
+/* METRICS */
+.hero-metrics {
+  display: flex;
+  gap: 0;
+  margin-bottom: 2rem;
+  border: 1px solid var(--rivet);
+  background: var(--plate);
+  overflow: hidden;
+}
+.metric-item {
+  flex: 1;
+  padding: 1rem .8rem;
+  text-align: center;
+  position: relative;
+}
+.metric-item + .metric-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 1px;
+  background: var(--rivet);
+}
+.metric-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--rust-bright);
+  line-height: 1;
+}
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .1em;
+  color: var(--fog);
+  line-height: 1.4;
+}
+
+.hero-cta {
+  display: flex;
+  gap: .8rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--rust);
+  color: white;
+  text-decoration: none;
+  border: none;
+  padding: .85rem 1.8rem;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  cursor: none;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: background .2s, transform .2s;
+}
+.btn-primary:hover { background: var(--rust-bright); transform: translateY(-1px); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: transparent;
+  color: var(--chalk);
+  text-decoration: none;
+  border: 1px solid var(--rivet);
+  padding: .85rem 1.8rem;
+  font-family: var(--font-display);
+  font-size: .8rem;
+  font-weight: 500;
+  letter-spacing: .12em;
+  cursor: none;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: border-color .2s, color .2s;
+}
+.btn-outline:hover { border-color: var(--rust); color: var(--rust-bright); }
+
+.hero-certbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  background: rgba(212,130,26,0.08);
+  border: 1px solid var(--amber);
+  border-left: 3px solid var(--amber);
+  padding: .6rem 1rem;
+}
+.certbadge-icon { font-size: 1.2rem; }
+.certbadge-title { display: block; font-family: var(--font-head); font-size: .8rem; font-weight: 700; color: var(--amber-bright); letter-spacing: .06em; }
+.certbadge-sub { display: block; font-family: var(--font-mono); font-size: .6rem; color: var(--smoke); }
+
+/* HERO RIGHT — ID CARD */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+.card-wrapper {
+  perspective: 1200px;
+}
+#profile-card {
+  width: 320px;
+  background: linear-gradient(145deg, var(--plate) 0%, var(--steel) 60%, #1f1b14 100%);
+  border: 1px solid var(--weld);
+  border-top: 2px solid var(--rust);
+  padding: 1.5rem;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .05s linear;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+@media (min-width: 1400px) {
+  #profile-card {
+    width: 380px;
+    padding: 2rem;
+  }
+  .card-portrait-placeholder {
+    height: 280px;
+  }
+  .card-name {
+    font-size: 1.4rem;
+  }
+}
+.card-corner {
+  position: absolute;
+  width: 16px; height: 16px;
+  border-color: var(--rust);
+  border-style: solid;
+}
+.card-corner.tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.card-corner.tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.card-corner.bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.card-corner.br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+.card-scan {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--rust), transparent);
+  animation: scanDown 3s ease-in-out infinite;
+  opacity: .5;
+}
+@keyframes scanDown {
+  0% { top: 0; opacity: .5; }
+  50% { top: 100%; opacity: .3; }
+  100% { top: 0; opacity: .5; }
+}
+.card-id-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .8rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--rivet);
+}
+.card-id-label {
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  letter-spacing: .15em;
+  color: var(--rust);
+}
+.card-id-num {
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  color: var(--smoke);
+}
+.card-portrait-placeholder {
+  height: 220px;
+  background: var(--iron);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: 1px solid var(--rivet);
+  position: relative;
+}
+.card-portrait-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: sepia(15%) contrast(1.05);
+}
+.card-info { margin-bottom: .6rem; }
+.card-title-label {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .1em;
+  color: var(--rust);
+  display: block;
+  margin-bottom: .3rem;
+}
+.card-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+}
+.card-role {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: var(--fog);
+  line-height: 1.5;
+}
+.card-status-bar {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: var(--safe-bright);
+  background: rgba(62,201,138,0.07);
+  border: 1px solid rgba(62,201,138,0.2);
+  padding: .35rem .6rem;
+}
+.csb-dot { width: 6px; height: 6px; background: var(--safe-bright); border-radius: 50%; }
+
+/* SPEC PANEL */
+.spec-panel {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-left: 2px solid var(--amber);
+  padding: .8rem 1rem;
+  width: 280px;
+}
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: .25rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: .72rem;
+}
+.spec-row:last-child { border-bottom: none; }
+.spec-key { font-family: var(--font-mono); color: var(--smoke); font-size: .62rem; letter-spacing: .08em; }
+.spec-val { font-family: var(--font-head); color: var(--chalk); font-weight: 600; font-size: .72rem; }
+.spec-val.avail { color: var(--amber-bright); }
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  z-index: 10;
+}
+.hero-scroll-hint span {
+  font-family: var(--font-mono);
+  font-size: .55rem;
+  letter-spacing: .2em;
+  color: var(--smoke);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--smoke), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim {
+  0%,100% { transform: scaleY(1); opacity: .5; }
+  50% { transform: scaleY(.5); opacity: 1; }
+}
+
+/* ─── SECTION COMMONS ─── */
+section {
+  position: relative;
+  z-index: 10;
+  padding: 5rem 2rem;
+}
+section:nth-child(even) { background: rgba(0,0,0,.25); }
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-tag-row { margin-bottom: .8rem; }
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .25em;
+  color: var(--rust);
+  border-left: 2px solid var(--rust);
+  padding-left: .6rem;
+}
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--chalk);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+h2.section-title em {
+  color: var(--rust-bright);
+  font-style: normal;
+  -webkit-text-stroke: 1px var(--rust);
+}
+.section-sub {
+  color: var(--fog);
+  font-size: .88rem;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── REVEAL ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── ABOUT ─── */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 4rem;
+  align-items: start;
+}
+.about-photos {
+  position: relative;
+  padding-bottom: 3rem;
+}
+.ap-main {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--rivet);
+  border-top: 3px solid var(--rust);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+.ap-main img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  object-position: top;
+  filter: sepia(20%) contrast(1.08);
+  display: block;
+}
+.ap-main-badge {
+  position: absolute;
+  bottom: 0; left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  background: rgba(26,24,20,.85);
+  border-top: 1px solid var(--rivet);
+  padding: .5rem .8rem;
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  color: var(--rust);
+}
+.ap-accent {
+  position: absolute;
+  bottom: 0; right: -1.5rem;
+  width: 45%;
+  border: 1px solid var(--amber);
+  overflow: hidden;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.ap-accent img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  filter: sepia(30%);
+  display: block;
+}
+.ap-decor {
+  position: absolute;
+  top: -20px; right: 20px;
+  width: 40px; height: 40px;
+  border: 2px solid var(--rust);
+  transform: rotate(45deg);
+  opacity: .3;
+}
+
+.about-text p {
+  color: var(--fog);
+  font-size: .9rem;
+  margin-bottom: 1.2rem;
+}
+.about-text strong { color: var(--chalk); }
+.about-traits {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  margin: 1.5rem 0;
+}
+.trait-item {
+  display: flex;
+  gap: .8rem;
+  padding: .8rem;
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-left: 2px solid var(--rust);
+}
+.trait-icon { font-size: 1.2rem; flex-shrink: 0; }
+.trait-item h4 {
+  font-family: var(--font-head);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+  margin-bottom: .2rem;
+}
+.trait-item p { font-size: .78rem; color: var(--fog); margin: 0; }
+.about-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: 1rem;
+}
+.pill {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .08em;
+  color: var(--fog);
+  background: var(--plate);
+  border: 1px solid var(--weld);
+  padding: .3rem .6rem;
+}
+.pill.amber { color: var(--amber-bright); border-color: var(--amber); background: rgba(212,130,26,.08); }
+
+/* ─── COMPANY ─── */
+.company-layout {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+.company-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 3px solid var(--rust);
+  padding: 1.8rem;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+}
+.company-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rivet);
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.company-logo-block {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+.company-icon { font-size: 2rem; }
+.company-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+}
+.company-dept {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--rust);
+  display: block;
+  letter-spacing: .08em;
+}
+.company-badge {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  background: rgba(62,201,138,.1);
+  color: var(--safe-bright);
+  border: 1px solid var(--safe);
+  padding: .25rem .5rem;
+  white-space: nowrap;
+}
+.company-body p {
+  color: var(--fog);
+  font-size: .88rem;
+  margin-bottom: 1rem;
+}
+.company-body strong { color: var(--chalk); }
+.company-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+}
+.cstat {
+  text-align: center;
+  padding: .8rem .5rem;
+  background: var(--steel);
+  border: 1px solid var(--weld);
+}
+.cstat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--rust-bright);
+  line-height: 1;
+}
+.cstat-label {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: var(--fog);
+  letter-spacing: .06em;
+  line-height: 1.4;
+}
+
+.worklife-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .8rem;
+}
+.wl-card {
+  background: var(--steel);
+  border: 1px solid var(--weld);
+  border-left: 2px solid var(--amber);
+  padding: 1rem 1rem 1rem 1.2rem;
+}
+.wl-icon { font-size: 1.2rem; margin-bottom: .4rem; }
+.wl-card h4 {
+  font-family: var(--font-head);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+  margin-bottom: .3rem;
+}
+.wl-card p { font-size: .78rem; color: var(--fog); }
+
+/* OPS FEED */
+.ops-feed {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  overflow: hidden;
+}
+.ops-feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .7rem 1.2rem;
+  background: var(--steel);
+  border-bottom: 1px solid var(--rivet);
+}
+.ops-feed-label {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .15em;
+  color: var(--rust);
+}
+.ops-feed-status {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--safe-bright);
+}
+.ops-feed-status span {
+  width: 6px; height: 6px;
+  background: var(--safe-bright);
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+.ops-feed-items { padding: .3rem 0; }
+.ops-item {
+  display: grid;
+  grid-template-columns: 70px 1fr 60px;
+  gap: .5rem;
+  align-items: center;
+  padding: .55rem 1.2rem;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+  transition: background .2s;
+}
+.ops-item:hover { background: rgba(196,80,26,.04); }
+.ops-item:last-child { border-bottom: none; }
+.ops-time {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--amber);
+  letter-spacing: .08em;
+}
+.ops-desc { font-size: .78rem; color: var(--fog); }
+.ops-status {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  letter-spacing: .08em;
+  text-align: right;
+}
+.ops-done { color: var(--safe-bright); }
+.ops-active { color: var(--amber-bright); }
+
+/* ─── SKILLS ─── */
+.skills-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 3rem;
+}
+.equip-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.equip-card-img {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #1a1200, #2a1e00);
+}
+.equip-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(30%) brightness(.7);
+  transition: transform .4s ease;
+}
+.equip-card:hover .equip-card-img img { transform: scale(1.04); }
+.equip-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(26,24,20,.95), transparent);
+  padding: 1rem .8rem .5rem;
+}
+.equip-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+}
+.equip-cap {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--amber);
+  letter-spacing: .1em;
+}
+.equip-body { padding: .8rem; }
+.equip-spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding: .3rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: .75rem;
+}
+.equip-spec-row:last-child { border-bottom: none; }
+.equip-spec-row span:first-child {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--smoke);
+  letter-spacing: .08em;
+}
+.equip-spec-row span:last-child { color: var(--fog); }
+.proficiency-bar {
+  display: flex;
+  align-items: center;
+  height: 4px;
+  width: 120px;
+  background: var(--rivet);
+  position: relative;
+  overflow: hidden;
+}
+.proficiency-bar span {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  width: var(--w, 0%);
+  background: var(--rust);
+  border-radius: 2px;
+}
+
+/* SKILL BARS */
+.skill-bars {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--rust);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+.skill-group-title {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--rust);
+  margin-bottom: 1rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--rivet);
+}
+.skill-bar-item { margin-bottom: 1rem; }
+.skill-bar-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .35rem;
+  font-size: .78rem;
+  color: var(--fog);
+}
+.skill-pct {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--rust);
+}
+.skill-track {
+  height: 3px;
+  background: var(--rivet);
+  position: relative;
+  overflow: hidden;
+}
+.skill-fill {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  width: var(--w, 0%);
+  background: linear-gradient(to right, var(--rust), var(--rust-bright));
+  transform-origin: left;
+  animation: skillIn 1s ease forwards;
+  animation-play-state: paused;
+}
+.skill-fill.amber { background: linear-gradient(to right, var(--amber), var(--amber-bright)); }
+.visible .skill-fill { animation-play-state: running; }
+@keyframes skillIn {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* CERT GRID */
+.cert-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+.cert-card {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  background: var(--steel);
+  border: 1px solid var(--weld);
+  padding: .8rem;
+}
+.cert-icon { font-size: 1.2rem; flex-shrink: 0; }
+.cert-card h4 {
+  font-family: var(--font-head);
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--chalk);
+  margin-bottom: .15rem;
+  letter-spacing: .03em;
+}
+.cert-card span { font-family: var(--font-mono); font-size: .6rem; color: var(--fog); }
+.soft-skills-wrap { background: var(--plate); border: 1px solid var(--rivet); padding: 1.2rem; }
+.soft-skills { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .8rem; }
+.soft-skill {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .06em;
+  color: var(--amber-bright);
+  background: rgba(212,130,26,.08);
+  border: 1px solid var(--amber);
+  padding: .25rem .55rem;
+}
+
+/* ─── EXPERIENCE ─── */
+.timeline-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 3rem;
+}
+.tl-item {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.tl-marker { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+.tl-dot {
+  width: 14px; height: 14px;
+  background: var(--rust);
+  border: 2px solid var(--rust-bright);
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  flex-shrink: 0;
+}
+.tl-dot-amber { background: var(--amber); border-color: var(--amber-bright); }
+.tl-line {
+  flex: 1;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--rivet), transparent);
+  margin-top: 8px;
+}
+.tl-body {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-left: 2px solid var(--rust);
+  padding: 1.2rem;
+}
+.tl-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: .8rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.tl-role {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--chalk);
+  letter-spacing: .04em;
+}
+.tl-company {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--rust);
+  letter-spacing: .08em;
+  display: block;
+  margin-top: .2rem;
+}
+.tl-period {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--amber);
+  white-space: nowrap;
+  background: rgba(212,130,26,.08);
+  border: 1px solid rgba(212,130,26,.3);
+  padding: .2rem .5rem;
+}
+.tl-equip-badge {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--fog);
+  background: var(--steel);
+  border: 1px solid var(--weld);
+  padding: .3rem .6rem;
+  margin-bottom: .8rem;
+  display: inline-block;
+}
+.tl-achievements {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+.tl-achievements li {
+  font-size: .82rem;
+  color: var(--fog);
+  padding: .4rem 0 .4rem 1rem;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,.03);
+}
+.tl-achievements li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--rust);
+  font-size: .7rem;
+}
+.tl-achievements li strong { color: var(--chalk); }
+.tl-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+.tl-tags span {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .06em;
+  color: var(--smoke);
+  background: var(--steel);
+  border: 1px solid var(--weld);
+  padding: .2rem .5rem;
+}
+.exp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  position: sticky;
+  top: 90px;
+}
+.exp-stat-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--rust);
+  padding: 1rem;
+  text-align: center;
+}
+.exp-stat-card.amber { border-top-color: var(--amber); }
+.exp-stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--rust-bright);
+  line-height: 1;
+}
+.exp-stat-card.amber .exp-stat-num { color: var(--amber-bright); }
+.exp-stat-label {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--fog);
+  letter-spacing: .06em;
+  line-height: 1.5;
+}
+.exp-why-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--amber);
+  padding: 1.2rem;
+}
+.exp-why-card h4 {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: var(--amber-bright);
+  margin-bottom: .6rem;
+}
+.exp-why-card p { font-size: .78rem; color: var(--fog); }
+
+/* ─── GALLERY ─── */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: .8rem;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--steel);
+  border: 1px solid var(--rivet);
+  cursor: none;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.gi-large {
+  grid-row: span 2;
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  filter: sepia(15%) contrast(1.05);
+  transition: transform .5s ease, filter .3s;
+  display: block;
+}
+.gi-large img { min-height: 400px; }
+.gallery-item:hover img { transform: scale(1.04); filter: sepia(5%); }
+.gi-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(26,24,20,.97) 60%, transparent);
+  padding: 2rem 1rem .8rem;
+  transform: translateY(60%);
+  transition: transform .35s ease;
+}
+.gallery-item:hover .gi-caption { transform: none; }
+.gi-tag {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .15em;
+  color: var(--rust);
+  display: block;
+  margin-bottom: .3rem;
+}
+.gi-caption h4 {
+  font-family: var(--font-display);
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--chalk);
+  letter-spacing: .04em;
+  margin-bottom: .3rem;
+}
+.gi-caption p { font-size: .72rem; color: var(--fog); }
+
+/* ─── BEYOND WORK ─── */
+.beyond-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.beyond-items {
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  margin-top: 1.5rem;
+}
+.beyond-item {
+  display: flex;
+  gap: .8rem;
+  padding: .8rem;
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+}
+.beyond-icon { font-size: 1.3rem; flex-shrink: 0; }
+.beyond-item h4 {
+  font-family: var(--font-head);
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+  margin-bottom: .2rem;
+}
+.beyond-item p { font-size: .78rem; color: var(--fog); }
+.personality-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 3px solid var(--amber);
+  padding: 1.5rem;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+.pc-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: .8rem;
+  border-bottom: 1px solid var(--rivet);
+}
+.pc-icon { font-size: 1.4rem; }
+.pc-header h4 {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .08em;
+}
+.pc-traits { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 1.2rem; }
+.pc-trait { }
+.pc-trait span {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--fog);
+  letter-spacing: .08em;
+  display: block;
+  margin-bottom: .25rem;
+}
+.pc-bar {
+  height: 3px;
+  background: var(--rivet);
+  position: relative;
+  overflow: hidden;
+}
+.pc-bar div {
+  position: absolute;
+  left: 0; top: 0;
+  height: 100%;
+  width: var(--w, 0%);
+  background: linear-gradient(to right, var(--amber), var(--amber-bright));
+  animation: skillIn 1s ease forwards;
+  animation-play-state: paused;
+}
+.visible .pc-bar div { animation-play-state: running; }
+.pc-quote {
+  background: var(--steel);
+  border-left: 2px solid var(--rust);
+  padding: .7rem .8rem;
+}
+.pc-quote span {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .78rem;
+  color: var(--fog);
+  line-height: 1.6;
+}
+
+/* ─── CONTACT ─── */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+.contact-left p { color: var(--fog); font-size: .88rem; margin-bottom: 1.5rem; }
+.contact-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1.5rem;
+}
+.ci-card {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .7rem .8rem;
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-left: 2px solid var(--weld);
+}
+.ci-icon { font-size: 1rem; flex-shrink: 0; }
+.ci-label {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  color: var(--smoke);
+  letter-spacing: .1em;
+  display: block;
+}
+.ci-val {
+  font-family: var(--font-head);
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--chalk);
+}
+.contact-social-row {
+  display: flex;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.csocial-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .6rem 1rem;
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  color: var(--fog);
+  text-decoration: none;
+  font-family: var(--font-head);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  transition: border-color .2s, color .2s;
+}
+.csocial-btn:hover { border-color: var(--rust); color: var(--rust-bright); }
+.csocial-green:hover { border-color: var(--safe); color: var(--safe-bright); }
+
+/* FORM */
+.contact-form-wrap {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--rust);
+  padding: 1.8rem;
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+.form-title-block { margin-bottom: 1.2rem; padding-bottom: .8rem; border-bottom: 1px solid var(--rivet); }
+.form-title {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .08em;
+  display: block;
+}
+.form-sub { font-family: var(--font-mono); font-size: .6rem; color: var(--smoke); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.form-group { margin-bottom: .8rem; }
+.form-group label {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  letter-spacing: .1em;
+  color: var(--smoke);
+  display: block;
+  margin-bottom: .35rem;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%;
+  background: var(--steel);
+  border: 1px solid var(--weld);
+  color: var(--chalk);
+  padding: .65rem .8rem;
+  font-family: var(--font-body);
+  font-size: .82rem;
+  outline: none;
+  transition: border-color .2s;
+  border-radius: 0;
+  appearance: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--rust);
+}
+.form-group textarea { height: 100px; resize: vertical; }
+.form-group select { cursor: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b6358' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .8rem center; }
+
+.contact-bottom-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--rust);
+  overflow: hidden;
+}
+.cbb-item {
+  padding: 1rem;
+  border-right: 1px solid var(--rivet);
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+.cbb-item:last-child { border-right: none; }
+.cbb-item span {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--smoke);
+  letter-spacing: .1em;
+}
+.cbb-item strong {
+  font-family: var(--font-head);
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--chalk);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--iron);
+  border-top: 2px solid var(--rust);
+  position: relative;
+  z-index: 10;
+}
+.footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+.footer-brand { }
+.footer-monogram {
+  width: 44px; height: 44px;
+  background: var(--rust);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: .04em;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  margin-bottom: .8rem;
+}
+.footer-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .06em;
+  display: block;
+}
+.footer-title-f {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--rust);
+  letter-spacing: .1em;
+  display: block;
+  margin-bottom: 1rem;
+}
+.footer-desc { font-size: .82rem; color: var(--fog); margin-bottom: 1.2rem; }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-links a {
+  font-family: var(--font-display);
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .1em;
+  color: var(--smoke);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-links a:hover { color: var(--rust-bright); }
+
+.ccs-promo-card {
+  background: var(--plate);
+  border: 1px solid var(--rivet);
+  border-top: 2px solid var(--rust);
+  padding: 1.5rem;
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+.ccs-promo-badge {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  letter-spacing: .1em;
+  color: var(--amber);
+  margin-bottom: .4rem;
+}
+.ccs-promo-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--chalk);
+  letter-spacing: .04em;
+  margin-bottom: .6rem;
+}
+.ccs-promo-logo span { color: var(--rust-bright); }
+.ccs-promo-card p { font-size: .8rem; color: var(--fog); margin-bottom: .8rem; }
+.ccs-promo-card strong { color: var(--amber-bright); }
+.ccs-promo-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: .5rem;
+}
+.ccs-promo-features span {
+  font-family: var(--font-mono);
+  font-size: .6rem;
+  color: var(--safe-bright);
+  letter-spacing: .06em;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--rivet);
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--smoke);
+  letter-spacing: .06em;
+}
+.footer-dev {
+  font-family: var(--font-mono);
+  font-size: .62rem;
+  color: var(--smoke);
+}
+.footer-dev a {
+  color: var(--rust);
+  text-decoration: none;
+  transition: color .2s;
+}
+.footer-dev a:hover { color: var(--rust-bright); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .about-layout, .company-layout, .skills-layout, .beyond-layout, .contact-layout { grid-template-columns: 1fr; }
+  .timeline-layout { grid-template-columns: 1fr; }
+  .exp-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
+  .exp-stat-card { flex: 1; min-width: 120px; }
+  .footer-main { grid-template-columns: 1fr; }
+  .contact-bottom-bar { grid-template-columns: repeat(2,1fr); }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gi-large { grid-row: span 1; }
+}
+
+@media (max-width: 768px) {
+  #mainNav { padding: .8rem 1rem; }
+  .nav-links, .nav-status { display: none; }
+  .nav-toggle { display: flex; }
+  section { padding: 3rem 1.2rem; }
+  .hero-metrics { overflow-x: auto; }
+  .hero-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+    padding: 0 1rem;
+  }
+  .hero-left { order: 2; }
+  .hero-right { order: 1; margin: 0 auto; width: 100%; max-width: 320px; }
+  #profile-card { width: 100%; height: auto; }
+  .card-portrait-placeholder { height: clamp(200px, 50vw, 260px); }
+  .hero-tag-row { justify-content: center; }
+  .hero-role-strip { justify-content: center; }
+  .hero-subtitle { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-certbadge { justify-content: center; text-align: left; }
+  .worklife-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-bottom-bar { grid-template-columns: 1fr 1fr; }
+  .ops-item { grid-template-columns: 60px 1fr; }
+  .ops-status { display: none; }
+  body { cursor: auto; }
+  #cursor-dot, #cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- CANVAS BG -->
+<canvas id="bg-canvas"></canvas>
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M8 3L4 7M8 3l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<!-- CCS POPUP -->
+<div class="ccs-popup" id="ccsPopup">
+  <button class="ccs-popup-close" onclick="document.getElementById('ccsPopup').classList.remove('show')">✕</button>
+  <div class="ccs-popup-tag">⚡ LIMITED OFFER — CASUAL CODE STUDIOS</div>
+  <div class="ccs-popup-logo">Casual <span>Code</span> Studios</div>
+  <p class="ccs-popup-text">Need a professional website like this one?</p>
+  <h3 class="ccs-popup-headline">Starting from <em>KES 3,000</em></h3>
+  <p class="ccs-popup-sub">PORTFOLIOS · BUSINESS SITES · E-COMMERCE · LANDING PAGES</p>
+  <a href="https://casual-code-studios.vercel.app/" target="_blank" class="ccs-popup-btn">Start Building Now →</a>
+  <p class="ccs-popup-fine">Fast delivery · Mobile-first · No hidden costs · Kenyan-built</p>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-brand">
+    <div class="nav-name-block">
+      <span class="nav-name">Dennis Wambua</span>
+      <span class="nav-title-small">HEAVY EQUIPMENT OPERATOR</span>
+    </div>
+  </div>
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    <span>OPEN TO OPPORTUNITIES</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">Profile</a></li>
+    <li><a href="#company">Company</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<nav class="nav-drawer" id="navDrawer">
+  <a href="#about"      onclick="closeDrawer()">Profile</a>
+  <a href="#company"    onclick="closeDrawer()">Company</a>
+  <a href="#skills"     onclick="closeDrawer()">Skills</a>
+  <a href="#experience" onclick="closeDrawer()">Experience</a>
+  <a href="#gallery"    onclick="closeDrawer()">Gallery</a>
+  <a href="#contact"    onclick="closeDrawer()">Contact</a>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-grid-lines" aria-hidden="true">
+    <div class="hgl hgl-1"></div><div class="hgl hgl-2"></div>
+    <div class="hgl hgl-3"></div><div class="hgl hgl-4"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag-row">
+        <span class="hero-tag">KE · MSA · PORT LOGISTICS</span>
+        <span class="hero-tag-year">EST. 2019</span>
+      </div>
+
+      <div class="hero-headline">
+        <span class="hero-pre">// CERTIFIED HEAVY EQUIPMENT OPERATOR</span>
+        <h1 class="hero-name">
+          DENNIS<br><span class="hero-name-accent">WAMBUA</span>
+        </h1>
+      </div>
+
+      <div class="hero-role-strip">
+        <span class="role-pill">⚙ Forklift Operator</span>
+        <span class="role-divider">—</span>
+        <span class="role-pill">🏗 Container Handler</span>
+        <span class="role-divider">—</span>
+        <span class="role-pill">🚛 Class B Driver</span>
+      </div>
+
+      <p class="hero-subtitle">
+        Heavy equipment specialist with <strong>5+ years</strong> operating high-capacity forklifts, managing container logistics at <strong>Mombasa Port</strong> — East Africa's largest port — and maintaining industrial machinery in Kenya's most demanding freight environments.
+      </p>
+
+      <div class="hero-metrics">
+        <div class="metric-item">
+          <span class="metric-num">5+</span>
+          <span class="metric-label">Years<br>Experience</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">44T</span>
+          <span class="metric-label">Max Load<br>Capacity</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">0</span>
+          <span class="metric-label">Safety<br>Incidents</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-num">30M+</span>
+          <span class="metric-label">Tonnes Port<br>Throughput/Yr</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Hire Dennis →</a>
+        <a href="#experience" class="btn-outline">View Record</a>
+      </div>
+
+      <div class="hero-certbadge">
+        <span class="certbadge-icon">🛡</span>
+        <div>
+          <span class="certbadge-title">NCPWD Certified Operator — National Licence</span>
+          <span class="certbadge-sub">Mombasa County Industrial Division · OSHA Compliant · Zero Incidents</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D CARD -->
+    <div class="hero-right">
+      <div class="card-wrapper" id="card-wrapper">
+        <div id="profile-card">
+          <div class="card-corner tl"></div>
+          <div class="card-corner tr"></div>
+          <div class="card-corner bl"></div>
+          <div class="card-corner br"></div>
+          <div class="card-scan"></div>
+
+          <div class="card-id-header">
+            <span class="card-id-label">// OPERATOR PROFILE</span>
+            <span class="card-id-num">#DW-2019-MSA</span>
+          </div>
+
+          <div class="card-portrait-placeholder">
+            <img src="IMG-20260421-WA0023.jpg" alt="Dennis Wambua" onerror="this.style.display='none';this.parentElement.style.background='linear-gradient(145deg,#2e2a23,#1a1814)';this.parentElement.innerHTML+='<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-family:Oswald,sans-serif;font-size:4rem;color:rgba(196,80,26,0.3);font-weight:700;letter-spacing:.08em;\'>DW</div>'">
+          </div>
+
+          <div class="card-info">
+            <span class="card-title-label">// HEAVY EQUIPMENT OPERATOR · PORT LOGISTICS</span>
+            <div class="card-name">Dennis Wambua</div>
+            <div class="card-role">Mombasa County — Industrial Division<br>Forklift · Container · Machinery · Class B</div>
+          </div>
+
+          <div class="card-status-bar">
+            <span class="csb-dot"></span>
+            <span>ACTIVE — OPEN TO OPPORTUNITIES</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-panel">
+        <div class="spec-row">
+          <span class="spec-key">LOCATION</span>
+          <span class="spec-val">Mombasa, Kenya</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">EMPLOYER</span>
+          <span class="spec-val">Mombasa County Govt.</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">LICENSE</span>
+          <span class="spec-val">Heavy Equip. + Class B</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">AVAILABILITY</span>
+          <span class="spec-val avail">Immediate</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-key">REGIONS</span>
+          <span class="spec-val">Kenya · EA · GCC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== CCS TICKER ===== -->
+<div class="ticker-wrap ccs-ticker" aria-label="Casual Code Studios Advertisement">
+  <div class="ticker-track">
+    <div class="ticker-item">🌐 Need a website like this one?</div>
+    <div class="ticker-item ccs-tick">— ⚡ Casual Code Studios — From KES 5,000 —</div>
+    <div class="ticker-item">📱 Mobile-first · Fast delivery · No hidden costs</div>
+    <div class="ticker-item ccs-tick">— 🚀 Portfolios · Landing Pages · E-Commerce · Business Sites —</div>
+    <div class="ticker-item">💼 Get your professional web presence today</div>
+    <div class="ticker-item ccs-tick">— 🔗 casual-code-studios.vercel.app —</div>
+    <div class="ticker-item">🌐 Need a website like this one?</div>
+    <div class="ticker-item ccs-tick">— ⚡ Casual Code Studios — From KES 5,000 —</div>
+    <div class="ticker-item">📱 Mobile-first · Fast delivery · No hidden costs</div>
+    <div class="ticker-item ccs-tick">— 🚀 Portfolios · Landing Pages · E-Commerce · Business Sites —</div>
+    <div class="ticker-item">💼 Get your professional web presence today</div>
+    <div class="ticker-item ccs-tick">— 🔗 casual-code-studios.vercel.app —</div>
+  </div>
+</div>
+
+<!-- ===== SKILL TICKER ===== -->
+<div class="ticker-wrap skills-ticker" aria-hidden="true">
+  <div class="ticker-track ticker-rtl">
+    <div class="ticker-item">⚙ Hyster 44-12 Forklift</div>
+    <div class="ticker-item">— 🏗 Container Stacking</div>
+    <div class="ticker-item">— 🔩 Industrial Machinery</div>
+    <div class="ticker-item">— 🚛 Heavy Vehicle Driving</div>
+    <div class="ticker-item">— 📦 Port Logistics</div>
+    <div class="ticker-item">— 🛡 Zero Incidents Record</div>
+    <div class="ticker-item">— 🏭 Factory Operations</div>
+    <div class="ticker-item">— 🔧 Equipment Maintenance</div>
+    <div class="ticker-item">— ⚙ Hyster 44-12 Forklift</div>
+    <div class="ticker-item">— 🏗 Container Stacking</div>
+    <div class="ticker-item">— 🔩 Industrial Machinery</div>
+    <div class="ticker-item">— 🚛 Heavy Vehicle Driving</div>
+    <div class="ticker-item">— 📦 Port Logistics</div>
+    <div class="ticker-item">— 🛡 Zero Incidents Record</div>
+    <div class="ticker-item">— 🏭 Factory Operations</div>
+    <div class="ticker-item">— 🔧 Equipment Maintenance</div>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-layout">
+      <div class="about-photos reveal">
+        <div class="ap-main">
+          <img src="IMG-20260421-WA0023.jpg" alt="Dennis Wambua operating forklift">
+          <div class="ap-main-badge">⚙ IN THE FIELD — MOMBASA PORT</div>
+        </div>
+        <div class="ap-accent">
+          <img src="IMG-20260421-WA0026.jpg" alt="Container yard operations">
+        </div>
+        <div class="ap-decor"></div>
+      </div>
+
+      <div class="about-text reveal">
+        <div class="section-tag-row">
+          <span class="section-tag">OPERATOR PROFILE</span>
+        </div>
+        <h2 class="section-title">Built for <em>Heavy</em><br>Environments</h2>
+
+        <p>Dennis Wambua is a certified heavy equipment operator and logistics professional based in Mombasa, Kenya. Over five years of hands-on operation at port berths and industrial facilities under Mombasa County, he has built a reputation as a reliable, safety-conscious operator trusted in East Africa's most demanding freight corridors.</p>
+
+        <p>Dennis operates high-capacity forklifts — including the <strong>Hyster 44-12</strong> rated at 44 tonnes — moving steel pipe bundles, ISO shipping containers, and heavy industrial cargo at Mombasa Port. His expertise spans container yard block stacking, coordination with logistics teams, and rotational deployment to industrial manufacturing plants for machinery support.</p>
+
+        <p>Beyond the forklift, Dennis carries a <strong>clean 5-year Class B driving record</strong> and deep OSHA safety training — making him a turnkey hire in any heavy industrial team across Kenya or the region.</p>
+
+        <div class="about-traits">
+          <div class="trait-item">
+            <span class="trait-icon">🎯</span>
+            <div>
+              <h4>Precision Operator</h4>
+              <p>Millimetre-accurate load placement in tight container yards and confined industrial spaces — no structural incidents in 5+ years.</p>
+            </div>
+          </div>
+          <div class="trait-item">
+            <span class="trait-icon">🛡</span>
+            <div>
+              <h4>Safety-First Culture</h4>
+              <p>Zero reported safety incidents across 5+ years of operation in East Africa's highest-volume port environment. OSHA compliant every shift.</p>
+            </div>
+          </div>
+          <div class="trait-item">
+            <span class="trait-icon">⚡</span>
+            <div>
+              <h4>Rapid Deployment</h4>
+              <p>Experienced in port turnaround operations where speed and accuracy must coexist — ready for immediate engagement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-pills">
+          <span class="pill">Hyster Forklift</span>
+          <span class="pill">Container Handling</span>
+          <span class="pill amber">Mombasa Port</span>
+          <span class="pill">Steel Pipe Logistics</span>
+          <span class="pill amber">Class B License</span>
+          <span class="pill">Industrial Safety</span>
+          <span class="pill">Factory Operations</span>
+          <span class="pill amber">5+ Years · 0 Incidents</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPANY ===== -->
+<section id="company">
+  <div class="section-inner">
+    <div class="section-tag-row reveal">
+      <span class="section-tag">EMPLOYER & WORK LIFE</span>
+    </div>
+    <h2 class="section-title reveal">Mombasa County —<br><em>Industrial Division</em></h2>
+
+    <div class="company-layout">
+      <div class="company-card reveal">
+        <div class="company-card-header">
+          <div class="company-logo-block">
+            <span class="company-icon">🏛</span>
+            <div>
+              <h3 class="company-name">Mombasa County Government</h3>
+              <span class="company-dept">// INDUSTRIAL & PORT LOGISTICS DIVISION</span>
+            </div>
+          </div>
+          <span class="company-badge">CURRENT EMPLOYER</span>
+        </div>
+
+        <div class="company-body">
+          <p>Mombasa County Government oversees one of East Africa's most critical logistics corridors — the <strong>Port of Mombasa</strong>, which processes over 30 million tonnes of cargo annually and serves as the primary gateway for landlocked nations across the region including Uganda, Rwanda, Burundi, and South Sudan. Dennis operates inside this engine daily, managing heavy freight movements that keep regional trade running.</p>
+
+          <div class="company-stats">
+            <div class="cstat">
+              <span class="cstat-num">30M+</span>
+              <span class="cstat-label">Tonnes Processed<br>Annually</span>
+            </div>
+            <div class="cstat">
+              <span class="cstat-num">7</span>
+              <span class="cstat-label">Countries Served<br>via Mombasa Port</span>
+            </div>
+            <div class="cstat">
+              <span class="cstat-num">#1</span>
+              <span class="cstat-label">Largest Port<br>in East Africa</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="worklife-grid reveal">
+        <div class="wl-card">
+          <div class="wl-icon">🕐</div>
+          <h4>Daily Operations</h4>
+          <p>Starts before sunrise. Pre-shift equipment checks, logistics coordination, then 8–12 hour shifts on heavy cargo, container movements, and port turnaround operations.</p>
+        </div>
+        <div class="wl-card">
+          <div class="wl-icon">📋</div>
+          <h4>Reporting & Compliance</h4>
+          <p>Maintains daily operation logs, documents load weights and cargo movements, and adheres strictly to OSHA industrial safety standards — no exceptions.</p>
+        </div>
+        <div class="wl-card">
+          <div class="wl-icon">🤝</div>
+          <h4>Team Coordination</h4>
+          <p>Works directly with crane operators, container planners, and port supervisors to execute safe, timely cargo turnaround in one of Africa's busiest berths.</p>
+        </div>
+        <div class="wl-card">
+          <div class="wl-icon">🏭</div>
+          <h4>Factory Assignments</h4>
+          <p>Rotational deployment to industrial manufacturing facilities — including blow-film plastic extrusion machinery operation, raw material handling, and production floor logistics.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATIONS LOG -->
+    <div class="ops-feed reveal">
+      <div class="ops-feed-header">
+        <span class="ops-feed-label">// OPERATIONS LOG — ACTIVE DUTIES</span>
+        <span class="ops-feed-status"><span></span> LIVE</span>
+      </div>
+      <div class="ops-feed-items">
+        <div class="ops-item">
+          <span class="ops-time">DAILY</span>
+          <span class="ops-desc">Steel pipe bundle transport — Hyster 44-12 · Port berth to storage yard</span>
+          <span class="ops-status ops-done">✓ Complete</span>
+        </div>
+        <div class="ops-item">
+          <span class="ops-time">DAILY</span>
+          <span class="ops-desc">ISO shipping container stacking — Multi-row, multi-tier container block management (20ft/40ft)</span>
+          <span class="ops-status ops-done">✓ Complete</span>
+        </div>
+        <div class="ops-item">
+          <span class="ops-time">WEEKLY</span>
+          <span class="ops-desc">Equipment pre-operation safety inspection — Fluids, hydraulics, tyres, forks, mast integrity</span>
+          <span class="ops-status ops-done">✓ Complete</span>
+        </div>
+        <div class="ops-item">
+          <span class="ops-time">ROTATION</span>
+          <span class="ops-desc">Blow-film extrusion machinery support — Factory floor raw material handling & machine monitoring</span>
+          <span class="ops-status ops-done">✓ Complete</span>
+        </div>
+        <div class="ops-item">
+          <span class="ops-time">ON-CALL</span>
+          <span class="ops-desc">Heavy vehicle transport — Class B licensed driver for County government assignments</span>
+          <span class="ops-status ops-active">⚡ Active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SKILLS ===== -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-tag-row reveal">
+      <span class="section-tag">TECHNICAL COMPETENCIES</span>
+    </div>
+    <h2 class="section-title reveal">Skills &amp; <em>Qualifications</em></h2>
+
+    <div class="skills-layout">
+      <div class="skills-left">
+        <div class="equip-card reveal">
+          <div class="equip-card-img">
+            <img src="IMG-20260421-WA0027.jpg" alt="Hyster 44-12 forklift with steel pipes">
+            <div class="equip-overlay">
+              <span class="equip-name">Hyster 44-12</span>
+              <span class="equip-cap">44 TONNE CAPACITY</span>
+            </div>
+          </div>
+          <div class="equip-body">
+            <div class="equip-spec-row"><span>TYPE</span><span>Heavy-Duty Counterbalance Forklift</span></div>
+            <div class="equip-spec-row"><span>CAPACITY</span><span>44,000 kg — Port Grade</span></div>
+            <div class="equip-spec-row"><span>APPLICATION</span><span>Port Cargo & Steel Pipe Transport</span></div>
+            <div class="equip-spec-row"><span>PROFICIENCY</span><span class="proficiency-bar"><span style="--w:95%"></span></span></div>
+          </div>
+        </div>
+
+        <div class="equip-card reveal">
+          <div class="equip-card-img">
+            <img src="IMG-20260421-WA0026.jpg" alt="Container handler operations">
+            <div class="equip-overlay">
+              <span class="equip-name">Container Handler</span>
+              <span class="equip-cap">20FT / 40FT ISO CONTAINERS</span>
+            </div>
+          </div>
+          <div class="equip-body">
+            <div class="equip-spec-row"><span>TYPE</span><span>Container Lift Truck / Reach Stacker</span></div>
+            <div class="equip-spec-row"><span>STACKING</span><span>Multi-tier (3+ high)</span></div>
+            <div class="equip-spec-row"><span>APPLICATION</span><span>Container Yard Block Management</span></div>
+            <div class="equip-spec-row"><span>PROFICIENCY</span><span class="proficiency-bar"><span style="--w:88%"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-right">
+        <div class="skill-bars reveal">
+          <h3 class="skill-group-title">// CORE COMPETENCIES</h3>
+
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Forklift Operation (Hyster 44-12)</span>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:95%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Container Handling & Stacking</span>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:88%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Heavy Vehicle Driving (Class B)</span>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:90%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Industrial Machinery Operation</span>
+              <span class="skill-pct">80%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Port Logistics & Cargo Management</span>
+              <span class="skill-pct">85%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:85%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>OSHA Safety Compliance</span>
+              <span class="skill-pct">100%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill amber" style="--w:100%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-hd">
+              <span>Equipment Pre-Op Inspection</span>
+              <span class="skill-pct">92%</span>
+            </div>
+            <div class="skill-track"><div class="skill-fill" style="--w:92%"></div></div>
+          </div>
+        </div>
+
+        <div class="cert-grid reveal">
+          <div class="cert-card">
+            <span class="cert-icon">📜</span>
+            <div>
+              <h4>Heavy Equipment Operator</h4>
+              <span>National Certification · Kenya</span>
+            </div>
+          </div>
+          <div class="cert-card">
+            <span class="cert-icon">🚛</span>
+            <div>
+              <h4>Class B Driving License</h4>
+              <span>5+ Years Clean Record · NTSA</span>
+            </div>
+          </div>
+          <div class="cert-card">
+            <span class="cert-icon">🛡</span>
+            <div>
+              <h4>OSHA Safety Compliance</h4>
+              <span>Industrial Safety · Certified</span>
+            </div>
+          </div>
+          <div class="cert-card">
+            <span class="cert-icon">🏗</span>
+            <div>
+              <h4>Port Operations Clearance</h4>
+              <span>Mombasa Port Authority</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="soft-skills-wrap reveal">
+          <h3 class="skill-group-title">// PROFESSIONAL ATTRIBUTES</h3>
+          <div class="soft-skills">
+            <span class="soft-skill">Punctuality</span>
+            <span class="soft-skill">Team Collaboration</span>
+            <span class="soft-skill">Problem Solving</span>
+            <span class="soft-skill">Attention to Detail</span>
+            <span class="soft-skill">Adaptability</span>
+            <span class="soft-skill">Physical Endurance</span>
+            <span class="soft-skill">Communication</span>
+            <span class="soft-skill">Leadership</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPERIENCE ===== -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-tag-row reveal">
+      <span class="section-tag">WORK HISTORY</span>
+    </div>
+    <h2 class="section-title reveal">Professional <em>Experience</em></h2>
+
+    <div class="timeline-layout">
+      <div class="timeline">
+        <!-- JOB 1 -->
+        <div class="tl-item reveal">
+          <div class="tl-marker">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <h3 class="tl-role">Senior Forklift Operator & Logistics Handler</h3>
+                <span class="tl-company">Mombasa County Government — Industrial Division</span>
+              </div>
+              <span class="tl-period">2019 — PRESENT</span>
+            </div>
+            <div class="tl-equip-badge">⚙ Hyster 44-12 · Container Handler · Industrial Plant</div>
+            <ul class="tl-achievements">
+              <li>Operates the <strong>Hyster 44-12</strong> (44,000 kg capacity) daily — steel pipe bundle transport, container stacking, and heavy cargo movement across Mombasa Port berths.</li>
+              <li>Manages container yard block stacking — precise placement of 20ft and 40ft ISO containers in multi-row, multi-tier configurations with <strong>zero structural incidents.</strong></li>
+              <li>Deployed on rotation to industrial manufacturing facilities for material handling support and blow-film extrusion machinery operation assistance.</li>
+              <li>Maintains a <strong>zero safety incident record</strong> across 5+ years of operations in one of East Africa's highest-volume logistics environments.</li>
+              <li>Conducts rigorous pre-operation equipment inspections — mast, forks, tyres, hydraulics, and fluid levels — before every shift without exception.</li>
+              <li>Coordinates with port supervisors, crane operators, and container planners to execute efficient, safe cargo turnaround schedules.</li>
+            </ul>
+            <div class="tl-tags">
+              <span>Mombasa Port</span><span>Hyster 44-12</span><span>Container Stacking</span><span>Steel Cargo</span><span>Factory Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOB 2 -->
+        <div class="tl-item reveal">
+          <div class="tl-marker">
+            <div class="tl-dot"></div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <h3 class="tl-role">Heavy Vehicle Driver — Class B</h3>
+                <span class="tl-company">County & Private Logistics Assignments · Kenya</span>
+              </div>
+              <span class="tl-period">2019 — PRESENT</span>
+            </div>
+            <div class="tl-equip-badge">🚛 Class B License · 5+ Years · Clean Record</div>
+            <ul class="tl-achievements">
+              <li>Class B licensed heavy vehicle driver with 5+ years of clean, incident-free driving across Kenyan road networks including the Nairobi–Mombasa highway corridor.</li>
+              <li>Deployed for County Government transport assignments — logistics support vehicles, cargo trucks, and personnel transport for industrial division operations.</li>
+              <li>Demonstrates exceptional spatial awareness and vehicle control navigating industrial yards, port facilities, and urban delivery routes under time pressure.</li>
+            </ul>
+            <div class="tl-tags">
+              <span>Class B</span><span>Heavy Vehicles</span><span>5+ Years</span><span>Clean Record</span><span>NTSA Licensed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- JOB 3 -->
+        <div class="tl-item reveal">
+          <div class="tl-marker">
+            <div class="tl-dot tl-dot-amber"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <h3 class="tl-role">Industrial Machinery Support Operator</h3>
+                <span class="tl-company">Manufacturing Facility — Mombasa County (Rotational)</span>
+              </div>
+              <span class="tl-period">ROTATION</span>
+            </div>
+            <div class="tl-equip-badge">🏭 Blow-Film Extrusion · Factory Floor · Material Handling</div>
+            <ul class="tl-achievements">
+              <li>Supports operation and maintenance of heavy industrial blow-film plastic extrusion machinery used in packaging material production — one of the specialised skills in his portfolio.</li>
+              <li>Handles raw material loading, machine monitoring, output quality checking, and basic mechanical adjustments under engineering supervision.</li>
+              <li>Manages forklift material movement within factory floor — raw material to production lines and finished goods to dispatch bay.</li>
+            </ul>
+            <div class="tl-tags">
+              <span>Extrusion Machinery</span><span>Factory Ops</span><span>Material Handling</span><span>Production Floor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="exp-sidebar reveal">
+        <div class="exp-stat-card">
+          <span class="exp-stat-num">5+</span>
+          <span class="exp-stat-label">Years of Active<br>Service</span>
+        </div>
+        <div class="exp-stat-card amber">
+          <span class="exp-stat-num">0</span>
+          <span class="exp-stat-label">Safety Incidents<br>Reported</span>
+        </div>
+        <div class="exp-stat-card">
+          <span class="exp-stat-num">44T</span>
+          <span class="exp-stat-label">Max Equipment<br>Capacity Operated</span>
+        </div>
+        <div class="exp-stat-card">
+          <span class="exp-stat-num">3</span>
+          <span class="exp-stat-label">Equipment Classes<br>Certified</span>
+        </div>
+
+        <div class="exp-why-card">
+          <h4>// WHY HIRE DENNIS?</h4>
+          <p>Dennis combines raw operational experience with an impeccable safety record and the adaptability to move between port logistics, industrial manufacturing, and heavy vehicle transport. He shows up, he delivers, and nobody gets hurt.</p>
+          <a href="#contact" class="btn-primary" style="margin-top:1.2rem;display:inline-flex;font-size:.72rem;padding:.7rem 1.3rem;">Contact Dennis →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-tag-row reveal">
+      <span class="section-tag">FIELD DOCUMENTATION</span>
+    </div>
+    <h2 class="section-title reveal">On-Site <em>Gallery</em></h2>
+    <p class="section-sub reveal">Real equipment. Real environments. Real results.</p>
+
+    <div class="gallery-grid">
+      <div class="gallery-item gi-large reveal">
+        <img src="IMG-20260421-WA0027.jpg" alt="Hyster 44-12 handling steel pipes at Mombasa Port">
+        <div class="gi-caption">
+          <span class="gi-tag">// PORT OPERATIONS</span>
+          <h4>Hyster 44-12 — Steel Pipe Bundle Transport</h4>
+          <p>44-tonne capacity forklift executing a full steel pipe bundle transport at a port berth. The kind of precision load management Dennis delivers every working day.</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="IMG-20260421-WA0026.jpg" alt="Container yard block management Mombasa">
+        <div class="gi-caption">
+          <span class="gi-tag">// CONTAINER YARD</span>
+          <h4>Container Block Management · Mombasa</h4>
+          <p>Multi-stack ISO container positioning in a high-density storage block — the spatial precision this demands separates operators from professionals.</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="IMG-20260421-WA0023.jpg" alt="Dennis Wambua forklift operator profile">
+        <div class="gi-caption">
+          <span class="gi-tag">// OPERATOR PROFILE</span>
+          <h4>Workshop & Indoor Operations</h4>
+          <p>Dennis in his element — operational attire, ready for deployment in industrial warehouse and workshop environments.</p>
+        </div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="IMG-20260421-WA0025_1_.jpg" alt="Industrial blow-film machinery Mombasa factory">
+        <div class="gi-caption">
+          <span class="gi-tag">// FACTORY FLOOR</span>
+          <h4>Industrial Machinery Operations</h4>
+          <p>Rotational deployment to a manufacturing facility — blow-film extrusion machinery monitoring, material handling, and production floor logistics.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEYOND WORK ===== -->
+<section id="beyond">
+  <div class="section-inner">
+    <div class="beyond-layout">
+      <div class="beyond-left reveal">
+        <span class="section-tag">BEYOND THE YARD</span>
+        <h2 class="section-title" style="margin-bottom:1rem">The Man<br><em>Off-Shift</em></h2>
+        <p style="color:var(--fog);font-size:.88rem;margin-bottom:1.2rem">Dennis is more than his machine. When the shift ends and the boots come off, he's a social, high-energy personality who brings the same focus and reliability he applies at the port to everything he does off the clock.</p>
+        <div class="beyond-items">
+          <div class="beyond-item">
+            <span class="beyond-icon">🚗</span>
+            <div>
+              <h4>Car Enthusiast & Driver</h4>
+              <p>5+ years behind the wheel. Dennis has a genuine passion for vehicles — he knows mechanics, appreciates engineering, and is as comfortable on the Nairobi–Mombasa highway as on a port yard.</p>
+            </div>
+          </div>
+          <div class="beyond-item">
+            <span class="beyond-icon">🤝</span>
+            <div>
+              <h4>Social & Community-Oriented</h4>
+              <p>Dennis values loyalty, friendship, and showing up for his people. The same team-first mentality that makes him effective at work makes him someone you want in your corner off it.</p>
+            </div>
+          </div>
+          <div class="beyond-item">
+            <span class="beyond-icon">💪</span>
+            <div>
+              <h4>Physically Fit & Operationally Sharp</h4>
+              <p>Operating 44-tonne machinery demands more than skill — it demands physical endurance and mental sharpness Dennis maintains through an active lifestyle. He shows up ready every single shift.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="beyond-right reveal">
+        <div class="personality-card">
+          <div class="pc-header">
+            <span class="pc-icon">👤</span>
+            <h4>PERSONALITY PROFILE</h4>
+          </div>
+          <div class="pc-traits">
+            <div class="pc-trait"><span>RELIABLE</span><div class="pc-bar"><div style="--w:98%"></div></div></div>
+            <div class="pc-trait"><span>DISCIPLINED</span><div class="pc-bar"><div style="--w:95%"></div></div></div>
+            <div class="pc-trait"><span>TEAM PLAYER</span><div class="pc-bar"><div style="--w:92%"></div></div></div>
+            <div class="pc-trait"><span>SOCIAL & PRESENT</span><div class="pc-bar"><div style="--w:88%"></div></div></div>
+            <div class="pc-trait"><span>ADAPTABLE</span><div class="pc-bar"><div style="--w:90%"></div></div></div>
+          </div>
+          <div class="pc-quote">
+            <span>"The machine does what you tell it to. It's the operator that decides whether the job gets done right."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag-row reveal">
+      <span class="section-tag">GET IN TOUCH</span>
+    </div>
+    <h2 class="section-title reveal">Hire <em>Dennis</em></h2>
+
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <p>Dennis Wambua is available for heavy equipment operator roles, logistics management positions, Class B driving assignments, and industrial machinery support contracts — across Kenya and the East African region.</p>
+
+        <div class="contact-info-cards">
+          <div class="ci-card">
+            <span class="ci-icon">📍</span>
+            <div>
+              <span class="ci-label">LOCATION</span>
+              <span class="ci-val">Mombasa, Kenya</span>
+            </div>
+          </div>
+          <div class="ci-card">
+            <span class="ci-icon">🏢</span>
+            <div>
+              <span class="ci-label">CURRENT EMPLOYER</span>
+              <span class="ci-val">Mombasa County Government</span>
+            </div>
+          </div>
+          <div class="ci-card">
+            <span class="ci-icon">⚡</span>
+            <div>
+              <span class="ci-label">AVAILABILITY</span>
+              <span class="ci-val" style="color:var(--amber-bright)">Open to Offers — Immediate</span>
+            </div>
+          </div>
+          <div class="ci-card">
+            <span class="ci-icon">🌍</span>
+            <div>
+              <span class="ci-label">WORK REGIONS</span>
+              <span class="ci-val">Kenya · East Africa · GCC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-social-row">
+          <a href="tel:+254700000000" class="csocial-btn">📞 Call</a>
+          <a href="https://wa.me/254700000000" target="_blank" class="csocial-btn csocial-green">💬 WhatsApp</a>
+          <a href="mailto:dennis.wambua@email.com" class="csocial-btn">📧 Email</a>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap reveal">
+        <div class="form-title-block">
+          <span class="form-title">// SEND A MESSAGE</span>
+          <span class="form-sub">Response within 24 hours · All inquiries considered</span>
+        </div>
+        <form onsubmit="handleForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>FULL NAME</label>
+              <input type="text" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+              <label>EMAIL / PHONE</label>
+              <input type="text" placeholder="your@email.com or +254..." required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>OPPORTUNITY TYPE</label>
+            <select>
+              <option value="">Select opportunity type</option>
+              <option>Forklift Operator Role</option>
+              <option>Container Handler Position</option>
+              <option>Class B Driver Assignment</option>
+              <option>Industrial Machinery Operator</option>
+              <option>Port Logistics Management</option>
+              <option>Contract / Casual Labour</option>
+              <option>GCC / Overseas Deployment</option>
+              <option>General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>MESSAGE</label>
+            <textarea placeholder="Tell Dennis about the opportunity — location, duration, pay range, equipment involved, start date..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">Send Opportunity →</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="contact-bottom-bar reveal">
+      <div class="cbb-item"><span>EQUIPMENT</span><strong>Hyster · Container Handler · Industrial</strong></div>
+      <div class="cbb-item"><span>LICENSE</span><strong>Heavy Equipment + Class B</strong></div>
+      <div class="cbb-item"><span>SAFETY RECORD</span><strong>Zero Incidents · 5+ Years</strong></div>
+      <div class="cbb-item"><span>BASE</span><strong>Mombasa, Kenya</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <div class="footer-monogram">DW</div>
+      <span class="footer-name">Dennis Wambua</span>
+      <span class="footer-title-f">// HEAVY EQUIPMENT OPERATOR · MOMBASA PORT LOGISTICS</span>
+      <p class="footer-desc">Certified heavy equipment operator and logistics professional with 5+ years of experience at Mombasa Port — East Africa's largest cargo gateway. Available for operator roles, driving assignments, and industrial contracts across Kenya and East Africa.</p>
+      <div class="footer-links">
+        <a href="#about">Profile</a>
+        <a href="#company">Company</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+
+    <div class="footer-ccs">
+      <div class="ccs-promo-card">
+        <div class="ccs-promo-badge">⚡ BUILT BY</div>
+        <h4 class="ccs-promo-logo">Casual <span>Code</span> Studios</h4>
+        <p>Need a professional website like this one? We build portfolios, business sites, landing pages, and e-commerce stores starting from <strong>KES 3,000.</strong></p>
+        <div class="ccs-promo-features">
+          <span>✓ Mobile-first</span>
+          <span>✓ Fast delivery</span>
+          <span>✓ No hidden costs</span>
+          <span>✓ Kenyan-built</span>
+        </div>
+        <a href="https://casual-code-studios.vercel.app/" target="_blank" class="btn-primary" style="font-size:.72rem;padding:.75rem 1.4rem;margin-top:1rem;display:inline-flex;">Start Your Project →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Dennis Wambua — All Rights Reserved · Mombasa, Kenya</p>
+    <p class="footer-dev">Designed & Developed by <a href="https://casual-code-studios.vercel.app/" target="_blank">Casual Code Studios</a></p>
+  </div>
+</footer>
+
+<script>
+/* ─── CANVAS PARTICLE FIELD — INDUSTRIAL DARK ─── */
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [], stars = [], sparks = [];
+
+function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resize();
+window.addEventListener('resize', resize);
+
+for (let i = 0; i < 80; i++) {
+  stars.push({ x: Math.random(), y: Math.random(), r: Math.random()*.7+.1, a: Math.random()*.4+.1 });
+}
+
+function spawnParticle() {
+  return {
+    x: Math.random() * W,
+    y: H + 60,
+    vx: (Math.random() - 0.5) * 1.2,
+    vy: -(Math.random() * 2.5 + 0.4),
+    life: 1.8,
+    decay: Math.random() * 0.006 + 0.004,
+    size: Math.random() * 28 + 6,
+    type: Math.random() > 0.55 ? 'rust' : Math.random() > 0.5 ? 'amber' : 'smoke'
+  };
+}
+for (let i = 0; i < 40; i++) {
+  let p = spawnParticle();
+  p.y = Math.random() * H;
+  particles.push(p);
+}
+
+let frame = 0;
+function drawBg() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Deep iron gradient
+  let grad = ctx.createRadialGradient(W * .3, H * .3, 0, W * .5, H * .5, H);
+  grad.addColorStop(0, '#201c15');
+  grad.addColorStop(0.5, '#131108');
+  grad.addColorStop(1, '#0a0906');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Rust glow bottom left
+  let rustGlow = ctx.createRadialGradient(0, H, 0, 0, H, H * .5);
+  rustGlow.addColorStop(0, 'rgba(196,80,26,0.12)');
+  rustGlow.addColorStop(1, 'transparent');
+  ctx.fillStyle = rustGlow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Amber glow top right
+  let amberGlow = ctx.createRadialGradient(W, 0, 0, W, 0, W * .45);
+  amberGlow.addColorStop(0, 'rgba(212,130,26,0.06)');
+  amberGlow.addColorStop(1, 'transparent');
+  ctx.fillStyle = amberGlow;
+  ctx.fillRect(0, 0, W, H);
+
+  // Stars
+  stars.forEach(s => {
+    let flicker = s.a + Math.sin(frame * 0.01 + s.x * 12) * 0.15;
+    ctx.beginPath();
+    ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(220,210,190,${Math.max(0, Math.min(.5, flicker))})`;
+    ctx.fill();
+  });
+
+  // Floating particles
+  if (frame % 6 === 0 && particles.length < 50) particles.push(spawnParticle());
+  particles.forEach((p, i) => {
+    p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+    if (p.life <= 0 || p.y < -20) { particles[i] = spawnParticle(); return; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    if (p.type === 'rust') {
+      ctx.fillStyle = `rgba(196,80,26,${p.life * 0.25})`;
+    } else if (p.type === 'amber') {
+      ctx.fillStyle = `rgba(212,130,26,${p.life * 0.2})`;
+    } else {
+      ctx.fillStyle = `rgba(107,99,88,${p.life * 0.15})`;
+    }
+    ctx.fill();
+  });
+
+  // Horizontal scan line
+  let scanY = (frame * 0.35) % H;
+  let scanGrad = ctx.createLinearGradient(0, scanY - 60, 0, scanY + 60);
+  scanGrad.addColorStop(0, 'transparent');
+  scanGrad.addColorStop(.5, 'rgba(196,80,26,0.025)');
+  scanGrad.addColorStop(1, 'transparent');
+  ctx.fillStyle = scanGrad;
+  ctx.fillRect(0, scanY - 60, W, 120);
+
+  frame++;
+  requestAnimationFrame(drawBg);
+}
+drawBg();
+
+/* ─── 3D CARD TILT ─── */
+const cardWrapper = document.getElementById('card-wrapper');
+const profileCard = document.getElementById('profile-card');
+let targetRX = 0, targetRY = 0, currentRX = 0, currentRY = 0;
+
+document.addEventListener('mousemove', e => {
+  if (!cardWrapper) return;
+  const rect = cardWrapper.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const dx = (e.clientX - cx) / (window.innerWidth / 2);
+  const dy = (e.clientY - cy) / (window.innerHeight / 2);
+  targetRY = dx * 18;
+  targetRX = -dy * 14;
+});
+document.addEventListener('mouseleave', () => { targetRX = 0; targetRY = 0; });
+function animateCard() {
+  currentRX += (targetRX - currentRX) * 0.07;
+  currentRY += (targetRY - currentRY) * 0.07;
+  if (profileCard) profileCard.style.transform = `rotateX(${currentRX}deg) rotateY(${currentRY}deg)`;
+  requestAnimationFrame(animateCard);
+}
+animateCard();
+
+/* ─── CUSTOM CURSOR ─── */
+const isFine = window.matchMedia('(pointer:fine)').matches;
+if (isFine) {
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  });
+  function animateCursor() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .cert-card, .trait-item, .wl-card, .ops-item, .gallery-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '44px'; ring.style.height = '44px';
+      ring.style.borderColor = 'rgba(196,80,26,0.7)';
+      dot.style.transform = 'translate(-50%,-50%) scale(1.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '28px'; ring.style.height = '28px';
+      ring.style.borderColor = 'rgba(196,80,26,0.5)';
+      dot.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+  });
+}
+
+/* ─── NAV SCROLL ─── */
+const mainNav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => mainNav.classList.toggle('scrolled', window.scrollY > 80), { passive: true });
+
+/* ─── HAMBURGER ─── */
+const toggle = document.getElementById('navToggle');
+const drawer = document.getElementById('navDrawer');
+toggle.addEventListener('click', () => {
+  const open = toggle.classList.toggle('open');
+  drawer.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer() {
+  toggle.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ─── SCROLL TOP ─── */
+const scrollTopBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollTopBtn.classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
+}, { passive: true });
+scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+/* ─── INTERSECTION OBSERVER ─── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i % 6 * 80) + 'ms';
+  io.observe(el);
+});
+
+/* ─── CCS POPUP ─── */
+setTimeout(() => {
+  const popup = document.getElementById('ccsPopup');
+  if (popup) popup.classList.add('show');
+}, 10000);
+
+/* ─── FORM ─── */
+function handleForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = 'linear-gradient(135deg,#1a5a30,#2d9e52)';
+  setTimeout(() => { btn.textContent = orig; btn.style.background = ''; }, 3500);
+}
+</script>
+</body>
+</html>
